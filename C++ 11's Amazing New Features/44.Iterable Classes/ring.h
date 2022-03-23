@@ -32,10 +32,18 @@ public:
         return m_size;
     }
 
+    iterator begin() {
+        return iterator(0, *this);
+    }
+
+    iterator end() {
+        return iterator(m_size, *this);
+    }
+
     void add(T value) {
         m_values[m_pos++] = value;
 
-        if(m_pos == m_size) {
+        if (m_pos == m_size) {
             m_pos = 0;
         }
     }
@@ -49,9 +57,32 @@ public:
 // iterator è una classe innestata in ring e definita qui, sebbene sia dichiarata all'interno della classe ring.
 template<class T>
 class ring<T>::iterator {
+private:
+    int m_pos;
+    ring &m_ring;
 public:
-    void print() {
-        cout << "Hello from iterator" << T() << endl;
+    iterator(int pos, ring &aRing) : m_pos(pos), m_ring(aRing) {
+    }
+
+    // &operator++(int) POSTFIX ADDITION OPERATOR
+    // &operator++() PREFIX ADDITION OPERATOR
+    iterator &operator++(int) {
+        m_pos++;
+        return *this;
+    }
+
+    iterator &operator++() {
+        m_pos++;
+        return *this;
+    }
+
+
+    T &operator*() {
+        return m_ring.get(m_pos);
+    }
+
+    bool operator!=(const iterator &other) const {
+        return m_pos != other.m_pos;
     }
 };
 

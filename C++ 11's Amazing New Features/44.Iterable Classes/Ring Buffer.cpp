@@ -10,23 +10,20 @@ int main() {
     textring.add("one");
     textring.add("two");
     textring.add("three");
-    textring.add("four");
-    textring.add("five");
-
 
     /*per poter rendere una classe iterabile è necessario che possa essere eseguito il seguente for loop,
      * con begin() ed end(), altrimenti non può funzionare */
 
+    // C++98 style
     for (ring<string>::iterator it = textring.begin(); it != textring.end(); it++) {
         cout << *it << endl;
     }
 
     cout << endl;
-
-    for (string value: textring) {
+    // C++11 style
+    for(auto value: textring) {
         cout << value << endl;
     }
-
 
     return 0;
 }
